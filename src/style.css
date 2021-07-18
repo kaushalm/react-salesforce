@@ -1,0 +1,10 @@
+h1,
+p {
+  font-family: Lato;
+}
+
+.title {
+  border-bottom: 10px solid black;
+  margin: 0px;
+  padding-bottom: 10px;
+}

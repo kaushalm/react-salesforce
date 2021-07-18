@@ -1,0 +1,82 @@
+/* List All Posts CSS */
+
+.myblog {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
+.pastposts {
+  border-right: 5px solid black;
+}
+
+.postnav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.allposts {
+  border-left: 5px solid black;
+}
+
+.postcard {
+  display: grid;
+  grid-template-rows: 20% 70% 10%;
+  padding: 10px;
+}
+
+.postheader {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.postbuttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100px;
+  grid-gap: 10px;
+}
+
+#delete {
+  color: white;
+  background-color: red;
+  width: 100px;
+  height: 20px;
+  border-radius: 5px;
+  border: none;
+}
+
+#edit {
+  color: white;
+  background-color: blue;
+  width: 100px;
+  height: 20px;
+  border-radius: 5px;
+  border: none;
+}
+
+#addnew{
+  color: white;
+  background-color: green;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+}
+
+/* Post From CSS */
+.postform {
+  border: 1px solid black;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+input,
+textarea {
+  width: 100%;
+}
+
+.saveButton {
+  width: 100px;
+}
