@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { toast } from 'react-toastify';
+
 import './style.css';
 
 export default function PostForm(props) {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
   const [isEdit, setIsEdit] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (props.editData.data) {
@@ -25,7 +29,8 @@ export default function PostForm(props) {
 
   //function to handle save of post
   function handleSave() {
-    console.log(props.editData.data.id);
+    setLoading(true);
+    //console.log(props.editData.data.id);
     let formData = {
       title,
       text
@@ -38,13 +43,20 @@ export default function PostForm(props) {
         }`,
         formData
       )
-      .then(response => {})
+      .then(response => {
+        toast.success('Post saved successfully.');
+        setLoading(false);
+      })
       .catch(err => {
+        toast.error('Cannot save post, some error occured' + err);
         console.log('Cannot save post, some error occured' + err);
+        setLoading(false);
       });
   }
 
-  return (
+  return loading ? (
+    <CircularProgress />
+  ) : (
     <div>
       <h2>{isEdit ? 'Edit Post' : 'New Post'}</h2>
       <div class="postform">

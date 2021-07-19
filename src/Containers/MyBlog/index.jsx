@@ -2,24 +2,32 @@ import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import './style.css';
 
 export default function MyBlog(props) {
   const [allposts, setAllPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     loadAllPosts();
   }, []);
 
   function loadAllPosts() {
+    setLoading(true);
     //load all posts data
     axios
       .get('https://salesforce-blogs.herokuapp.com/blogs/api/')
       .then(resp => {
         setAllPosts(resp.data);
-        toast('Fetched all poasts successfullt');
+        toast.success('Fetched all poasts successfully');
+        setLoading(false);
       })
       .catch(err => {
         console.log('Error Occured' + err);
+        toast.error('Cannot delete post, some error occured' + err);
+        setLoading(false);
       });
   }
 
@@ -37,7 +45,8 @@ export default function MyBlog(props) {
         props.handleEdit(response);
       })
       .catch(err => {
-        console.log('Cannot delete post, some error occured' + err);
+        console.log('Cannot fecth post for edit, some error occured' + err);
+        toast.error('Cannot fetch post for edit, some error occured' + err);
       });
   }
 
@@ -51,6 +60,7 @@ export default function MyBlog(props) {
       })
       .catch(err => {
         console.log('Cannot delete post, some error occured' + err);
+        toast.error('Cannot delete post, some error occured' + err);
       });
   }
 
@@ -60,7 +70,9 @@ export default function MyBlog(props) {
     props.handleAddNew(true);
   }
 
-  return (
+  return loading ? (
+    <CircularProgress />
+  ) : (
     <div class="myblog">
       <div class="pastposts">
         {allposts &&

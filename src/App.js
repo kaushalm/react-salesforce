@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import './style.css';
 import PostForm from './Containers/MyBlog/PostForm';
 import MyBlog from './Containers/MyBlog/index';
@@ -35,6 +38,7 @@ export default function App() {
         <MyBlog handleAddNew={addNewPost} handleEdit={EditPost} />
       )}
       {showAddNew && <PostForm editData={editData} />}
+      <ToastContainer closeButton={true} position="top-center" />
     </div>
   );
 }
