@@ -21,9 +21,16 @@ export default function App() {
     setShowAllPosts(false);
   }
 
+  function goHome() {
+    setshowAddNew(false);
+    setShowAllPosts(true);
+  }
+
   return (
     <div>
-      <h1 class="title">My Blog</h1>
+      <h1 class="title" onClick={goHome}>
+        My Blog
+      </h1>
       {showAllPosts && (
         <MyBlog handleAddNew={addNewPost} handleEdit={EditPost} />
       )}

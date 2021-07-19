@@ -5,13 +5,15 @@ import './style.css';
 export default function PostForm(props) {
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     if (props.editData.data) {
       setTitle(props.editData.data.title);
       setText(props.editData.data.text);
+      setIsEdit(true);
     }
-  }, [title, text]);
+  }, []);
 
   function handleTitleChange() {
     setTitle(event.target.value);
@@ -23,13 +25,19 @@ export default function PostForm(props) {
 
   //function to handle save of post
   function handleSave() {
+    console.log(props.editData.data.id);
     let formData = {
       title,
       text
     };
     console.log(formData);
     axios
-      .post('https://salesforce-blogs.herokuapp.com/blogs/api/', formData)
+      .post(
+        `https://salesforce-blogs.herokuapp.com/blogs/api/${
+          isEdit ? props.editData.data.id : ''
+        }`,
+        formData
+      )
       .then(response => {})
       .catch(err => {
         console.log('Cannot save post, some error occured' + err);
@@ -38,15 +46,19 @@ export default function PostForm(props) {
 
   return (
     <div>
-      <h2>New Post</h2>
+      <h2>{isEdit ? 'Edit Post' : 'New Post'}</h2>
       <div class="postform">
         <div class="postfield">
           <span>TITLE:</span>
-          <input type="text" value={title} onChange={handleTitleChange} />
+          <input
+            type="text"
+            defaultValue={title}
+            onChange={handleTitleChange}
+          />
         </div>
         <div class="postfield">
           <span>TEXT:</span>
-          <textarea onChange={handleTextChange} value={text} rows="5" />
+          <textarea onChange={handleTextChange} defaultValue={text} rows="5" />
         </div>
         <div class="postfield">
           <input
